@@ -1,0 +1,183 @@
+import java.util.Scanner;
+
+public class PQueue
+{
+    int[] arr;
+    int Front;
+    int Rear;
+    int c1;
+    
+    PQueue()
+    {
+        c1=0;
+        arr=new int[5];
+        Front=-1;
+        Rear=-1;
+    }
+    void insert()
+    {
+        
+        if((Rear==4 && Front==0) || Rear==Front-1)
+        {
+            System.out.println("Queue Full");
+        }
+        else
+        {
+            System.out.println("Enter Data");
+            Scanner sc=new Scanner(System.in);
+            
+            int data=sc.nextInt();
+            
+            if(Front==-1)
+            {
+                Front=0;
+            }
+            if(Rear<4)
+            {
+                Rear=Rear+1;
+            }
+            else if(Rear==4 && Front!=0)
+            {
+                Rear=0;
+            }
+            arr[Rear]=data;
+            if(checkPerfect(data))
+            {
+                c1++;
+            }
+            System.out.println(" Total Perfect no :"+ c1);
+            System.out.println(" Data Inserted");
+        }
+    }
+    boolean checkPerfect(int no)
+    {
+        
+        int c=0;
+        for(int i=1;i<no;i++)
+        {
+            if(no%i==0)
+            {
+                c=c+i;
+            }
+        }
+        return c==no;
+        
+    }
+    void delete()
+    {
+        if(Front==-1 || Rear==-1) 
+        {
+            System.out.println("Circular Queue Empty");
+        }
+        else
+        {
+            if (Front==Rear)
+            {
+                System.out.println(" Deleted :"+arr[Front]);
+                Front=-1;
+                Rear=-1;
+            }
+            else if (Front<Rear)
+            {
+                Front=Front+1;
+                
+            }
+            else if (Front==4)
+            {
+                System.out.println("Deleted : "+arr[Front]);
+                Front=0;
+            }
+            else {
+                System.out.println(" Deleted : "+arr[Front]);
+                Front=Front+1;
+            }
+           
+        }
+    }
+    void traverse()
+    {
+        if(Front==-1 || Rear==-1)
+        {
+            System.out.println("Queue Empty");
+        }
+        else
+        {
+            if(Front<=Rear)
+            {
+                for(int i=Front; i<=Rear;i++)
+                {
+                    System.out.print(" "+arr[i]);
+                }
+            }
+            else
+            {
+                for (int i = Front; i < arr.length; i++) 
+                {
+                    System.out.print(" "+arr[i]);
+                }
+                for (int i = 0; i < Rear; i++)
+                {
+                    System.out.print(" "+arr[i]);
+                }
+            }
+        }
+    }
+    void peek()
+    {
+        if(Front==-1 || Rear==-1)
+        {
+            System.out.println("Queue Empty");
+        }
+        else
+        {
+            System.out.println("Last Element :"+arr[Rear]);
+        }
+    }
+    void poll()
+    {
+        if(Front == -1)
+        {
+            System.out.println("Queue Empty");
+        }
+        else
+        {
+            System.out.println("First Element :"+arr[Front]);
+            
+        }
+    }
+    public static void main(String[] args)
+    {
+        PQueue obj=new PQueue();
+        while(true)
+        {
+            System.out.println("\nPress 1 for insert");
+            System.out.println("Press 2 for delete");
+            System.out.println("Press 3 for traverse");
+            System.out.println("Press 4 for exit");
+            System.out.println("Press 5 for peek");
+            System.out.println("Press 6 for poll");
+            System.out.println("Enter your choice");
+            
+            Scanner sc=new Scanner(System.in);
+            int ch=sc.nextInt();
+
+            switch (ch) {
+                case 1:
+                    obj.insert();
+                case 2:
+                    obj.delete();
+                case 3:
+                    obj.traverse();
+                case 4:
+                    System.exit(0);
+                case 5:
+                     obj.peek();
+                case 6:
+                    obj.poll();
+                default:
+                    System.out.println("Invalid choice");
+            }
+            
+        }
+    }
+}
